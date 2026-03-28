@@ -3,9 +3,10 @@
 
   async function request(path, options) {
     const token = localStorage.getItem("golf_charity_token");
+    const hasBody = options && Object.prototype.hasOwnProperty.call(options, "body");
     const response = await fetch(`${baseUrl}${path}`, {
       headers: {
-        "Content-Type": "application/json",
+        ...(hasBody ? { "Content-Type": "application/json" } : {}),
         ...(token ? { Authorization: `Bearer ${token}` } : {})
       },
       ...options
