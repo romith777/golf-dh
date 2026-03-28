@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscriber Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="dashboard">
+    <div class="page-shell page-dashboard">
+      <header class="topbar container">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">GH</span>
+          <span><strong>Golf Charity</strong><small>Subscriber Dashboard</small></span>
+        </a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" data-mobile-menu-toggle>
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" data-mobile-nav>
+          <a href="./index.html">Home</a>
+          <button class="link-button" id="logoutButton">Logout</button>
+        </nav>
+      </header>
+
+      <main class="container dashboard-layout">
+        <section class="dashboard-hero glass">
+          <div>
+            <p class="eyebrow">Subscriber panel</p>
+            <h1 id="dashboardName">Welcome back</h1>
+            <p class="lede">Manage your plan, maintain your latest five scores, track charity contribution settings, and upload winner proof when needed.</p>
+          </div>
+          <div class="status-pill" id="subscriptionStatusPill">Loading...</div>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="glass panel">
+            <h2>Profile & Subscription</h2>
+            <form id="profileForm" class="stack">
+              <input class="input" name="name" placeholder="Full name" />
+              <select class="input" name="charityId" id="profileCharitySelect"></select>
+              <input class="input" name="charityPercentage" type="number" min="10" />
+              <select class="input" name="planId" id="profilePlanSelect"></select>
+              <button class="button button-primary" type="submit">Save profile</button>
+              <button class="button button-secondary" type="button" id="razorpayPayButton">Pay with Razorpay</button>
+            </form>
+            <div class="meta-grid" id="subscriptionMeta"></div>
+          </article>
+
+          <article class="glass panel">
+            <h2>Add score</h2>
+            <form id="scoreForm" class="stack">
+              <input class="input" name="value" type="number" min="1" max="45" placeholder="Stableford score" required />
+              <input class="input" name="playedAt" type="date" required />
+              <button class="button button-primary" type="submit">Add score</button>
+            </form>
+            <div id="scoreList" class="score-list"></div>
+          </article>
+
+          <article class="glass panel">
+            <h2>Participation & Winnings</h2>
+            <div id="participationCard" class="participation-card"></div>
+            <div id="winningList" class="stack"></div>
+            <form id="proofForm" class="stack">
+              <input class="input" name="winningId" placeholder="Winning ID" required />
+              <input class="input" name="proofUrl" placeholder="Proof screenshot URL" required />
+              <button class="button button-secondary" type="submit">Upload winner proof</button>
+            </form>
+          </article>
+
+          <article class="glass panel">
+            <h2>Selected charity</h2>
+            <div id="selectedCharityCard" class="selected-charity-card"></div>
+          </article>
+
+          <article class="glass panel">
+            <h2>Notifications</h2>
+            <div id="notificationList" class="stack"></div>
+          </article>
+        </section>
+
+        <p id="dashboardMessage" class="feedback"></p>
+      </main>
+    </div>
+
+    <script src="./js/config.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/toast.js"></script>
+    <script src="./js/mobile-nav.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="./js/dashboard.js"></script>
+  </body>
+</html>

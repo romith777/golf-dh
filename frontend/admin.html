@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="admin">
+    <div class="page-shell page-admin">
+      <header class="topbar container">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">GH</span>
+          <span><strong>Golf Charity</strong><small>Admin Dashboard</small></span>
+        </a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" data-mobile-menu-toggle>
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" data-mobile-nav>
+          <a href="./index.html">Home</a>
+          <button class="link-button" id="adminLogoutButton">Logout</button>
+        </nav>
+      </header>
+
+      <main class="container admin-layout">
+        <section class="glass panel" id="adminGate">
+          <p class="eyebrow">Admin Access</p>
+          <h2>Login as admin to continue</h2>
+          <p class="lede">Use your admin credentials to access draw controls, winners, user management, and charity tools.</p>
+          <form id="adminLoginForm" class="stack">
+            <input class="input" name="email" type="email" placeholder="Admin email" required />
+            <input class="input" name="password" type="password" placeholder="Password" required />
+            <button class="button button-primary" type="submit">Login as admin</button>
+          </form>
+          <p class="hint">Demo admin: <strong>admin@golfcharity.app</strong> / <strong>admin123</strong></p>
+
+          <div class="stack" style="margin-top: 20px;">
+            <h3>Create admin account</h3>
+            <form id="adminCreateForm" class="stack">
+              <input class="input" name="name" placeholder="Full name" required />
+              <input class="input" name="email" type="email" placeholder="Admin email" required />
+              <input class="input" name="password" type="password" placeholder="Password" required />
+              <input class="input" name="setupKey" type="password" placeholder="Admin setup key" required />
+              <button class="button button-secondary" type="submit">Create admin account</button>
+            </form>
+          </div>
+        </section>
+
+        <section id="adminDashboard" class="stack hidden">
+        <section class="dashboard-hero glass">
+          <div>
+            <p class="eyebrow">Admin control center</p>
+            <h1>Users, draw operations, charities, and winner verification.</h1>
+            <p class="lede">This panel covers the PRD-required management flows with data summaries, draw simulation, and winner payout review.</p>
+          </div>
+        </section>
+
+        <section class="stats-grid" id="adminStats"></section>
+
+        <section class="dashboard-grid">
+          <article class="glass panel">
+            <h2>Draw controls</h2>
+            <form id="simulateDrawForm" class="stack">
+              <select class="input" name="mode">
+                <option value="random">Random</option>
+                <option value="algorithm">Algorithmic</option>
+              </select>
+              <div class="button-row">
+                <button class="button button-secondary" type="submit">Run simulation</button>
+                <button class="button button-primary" type="button" id="publishDrawButton">Publish draw</button>
+              </div>
+            </form>
+            <div id="drawSimulationResult" class="stack"></div>
+          </article>
+
+          <article class="glass panel">
+            <h2>Users</h2>
+            <div id="adminUsers" class="table-stack"></div>
+          </article>
+
+          <article class="glass panel">
+            <h2>Current charities</h2>
+            <div id="adminCharities" class="table-stack"></div>
+          </article>
+
+          <article class="glass panel">
+            <h2>Add charity</h2>
+            <form id="charityForm" class="stack">
+              <input class="input" name="name" placeholder="Charity name" required />
+              <input class="input" name="category" placeholder="Category" required />
+              <input class="input" name="location" placeholder="Location" required />
+              <input class="input" name="image" placeholder="Image URL" required />
+              <input class="input" name="upcomingEvent" placeholder="Upcoming event" required />
+              <textarea class="input textarea" name="description" placeholder="Description" required></textarea>
+              <label class="checkbox-row"><input type="checkbox" name="featured" /> Featured charity</label>
+              <button class="button button-primary" type="submit">Create charity</button>
+            </form>
+          </article>
+
+          <article class="glass panel">
+            <h2>Winner verification</h2>
+            <div id="winnerList" class="table-stack"></div>
+          </article>
+        </section>
+
+        <p id="adminMessage" class="feedback"></p>
+        </section>
+      </main>
+    </div>
+
+    <script src="./js/config.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/toast.js"></script>
+    <script src="./js/mobile-nav.js"></script>
+    <script src="./js/admin.js"></script>
+  </body>
+</html>

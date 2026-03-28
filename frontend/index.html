@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golf Charity Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="home">
+    <div class="page-shell">
+      <header class="topbar container">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">GH</span>
+          <span>
+            <strong>Golf Charity</strong>
+            <small>Subscription Platform</small>
+          </span>
+        </a>
+        <button class="mobile-menu-toggle" type="button" aria-label="Open menu" data-mobile-menu-toggle>
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" data-mobile-nav>
+          <a href="#charities">Charities</a>
+          <a href="#draws">Draws</a>
+          <a href="#plans">Plans</a>
+          <a href="./dashboard.html" id="navDashboardLink">Dashboard</a>
+          <a href="./admin.html" id="navAdminLink">Admin</a>
+          <button class="link-button hidden" id="homeLogoutButton">Logout</button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero container">
+          <div class="hero-copy">
+            <p class="eyebrow">Golf scores with real-world impact</p>
+            <h1>Track your last 5 rounds, enter the monthly draw, and fund a charity you actually care about.</h1>
+            <p class="lede">
+              A modern, emotionally-led golf platform blending score tracking, prize pool participation, and charity contributions in one clean subscription experience.
+            </p>
+            <div class="hero-actions">
+              <button class="button button-primary" id="primaryHeroAction" data-open-modal="signup">Start Subscription</button>
+              <button class="button button-secondary" id="secondaryHeroAction" data-open-modal="login">Use Demo Login</button>
+            </div>
+            <div class="stats-grid" id="statsGrid"></div>
+          </div>
+          <div class="hero-card glass">
+            <span class="chip">Monthly Prize Engine</span>
+            <div class="draw-balls" id="latestDrawBalls"></div>
+            <div class="metric-stack">
+              <article>
+                <strong id="latestDrawMonth">March 2026</strong>
+                <span>Latest published draw</span>
+              </article>
+              <article>
+                <strong id="latestPrizePool">$0</strong>
+                <span>Prize pool total</span>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section container">
+          <div class="section-heading">
+            <p class="eyebrow">How it works</p>
+            <h2>Subscription, scores, draw logic, and charity support in one loop.</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card glass"><span>01</span><h3>Choose a plan</h3><p>Monthly or yearly subscription with a built-in prize pool contribution.</p></article>
+            <article class="feature-card glass"><span>02</span><h3>Enter your last 5 scores</h3><p>Stableford scores are kept to a rolling set of five and shown most recent first.</p></article>
+            <article class="feature-card glass"><span>03</span><h3>Select your charity</h3><p>Pick a charity at signup and set a minimum 10% contribution from your plan.</p></article>
+            <article class="feature-card glass"><span>04</span><h3>Join the monthly draw</h3><p>Admins can simulate and publish random or algorithmic monthly draws, including jackpot rollover.</p></article>
+          </div>
+        </section>
+
+        <section class="section container" id="charities">
+          <div class="section-heading with-action">
+            <div>
+              <p class="eyebrow">Charity directory</p>
+              <h2>Featured partners and searchable causes.</h2>
+            </div>
+            <input id="charitySearch" class="input search-input" type="search" placeholder="Search charities, categories, locations..." />
+          </div>
+          <div class="charity-grid" id="charityGrid"></div>
+        </section>
+
+        <section class="section container" id="draws">
+          <div class="section-heading">
+            <p class="eyebrow">Draw mechanics</p>
+            <h2>Three reward tiers with automatic prize pool distribution.</h2>
+          </div>
+          <div class="logic-layout">
+            <div class="glass logic-copy">
+              <h3>Prize pool split</h3>
+              <p class="soft">You do not enter extra money manually for the draw. A fixed portion of every active subscription is automatically added to the monthly prize pool.</p>
+              <ul class="plain-list">
+                <li>5-number match: 40% and jackpot rollover if unclaimed</li>
+                <li>4-number match: 35% split equally across winners</li>
+                <li>3-number match: 25% split equally across winners</li>
+              </ul>
+            </div>
+            <div class="glass draw-history" id="drawHistory"></div>
+          </div>
+        </section>
+
+        <section class="section container" id="plans">
+          <div class="section-heading">
+            <p class="eyebrow">Plans</p>
+            <h2>Built for conversion, not golf cliches.</h2>
+          </div>
+          <div class="plan-grid" id="planGrid"></div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-backdrop hidden" id="authModalBackdrop">
+      <div class="modal-card">
+        <button class="modal-close" id="closeModalButton" aria-label="Close">×</button>
+        <div class="tab-row">
+          <button class="tab-button active" data-auth-tab="signup">Signup</button>
+          <button class="tab-button" data-auth-tab="login">Login</button>
+        </div>
+        <form id="signupForm" class="auth-form">
+          <h3>Create subscriber account</h3>
+          <input class="input" name="name" placeholder="Full name" required />
+          <input class="input" name="email" type="email" placeholder="Email address" required />
+          <input class="input" name="password" type="password" placeholder="Password" required />
+          <select class="input" name="planId" id="signupPlanSelect" required></select>
+          <select class="input" name="charityId" id="signupCharitySelect" required></select>
+          <input class="input" name="charityPercentage" type="number" min="10" value="10" required />
+          <button class="button button-primary" type="submit">Create account</button>
+        </form>
+        <form id="loginForm" class="auth-form hidden">
+          <h3>Login</h3>
+          <input class="input" name="email" type="email" placeholder="Email address" required />
+          <input class="input" name="password" type="password" placeholder="Password" required />
+          <button class="button button-primary" type="submit">Sign in</button>
+          <p class="hint">Demo subscriber: <strong>player@golfcharity.app</strong> / <strong>player123</strong></p>
+          <p class="hint">Demo admin: <strong>admin@golfcharity.app</strong> / <strong>admin123</strong></p>
+        </form>
+        <p id="authMessage" class="feedback"></p>
+      </div>
+    </div>
+
+    <script src="./js/config.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/toast.js"></script>
+    <script src="./js/mobile-nav.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
